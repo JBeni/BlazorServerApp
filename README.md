@@ -1,1 +1,3 @@
 # BlazorServerApp
+
+* Sample BlazorServer App
