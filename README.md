@@ -1,3 +1,3 @@
-# BlazorServerApp
+# Blazor.Server
 
-* Sample BlazorServer App
+* Sample Blazor Server App
