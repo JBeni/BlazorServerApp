@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
 namespace Blazor.Server.Filters
 {
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {
+        Claim _claim;
+
         public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var identity = new ClaimsIdentity(new[]
@@ -16,10 +20,6 @@ namespace Blazor.Server.Filters
 
             return Task.FromResult(new AuthenticationState(user));
         }
-
-        Claim _claim;
-
-        public AuthorizationUserFilter() { }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
