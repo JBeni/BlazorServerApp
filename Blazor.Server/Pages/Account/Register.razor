@@ -1,5 +1,5 @@
 ﻿@page "/signup"
-@using BlazorServerSideRealWorld.Models
+@*@using BlazorServerSideRealWorld.Models
 @using BlazorServerSideRealWorld.Services
 @inject NavigationManager navigationManager
 @inject UserService userApi
@@ -30,24 +30,23 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
-@functions {
-    UserCredentials userCredentials = new UserCredentials();
-    ErrorsModel errors = new ErrorsModel();
+@code {
+    //UserCredentials userCredentials = new UserCredentials();
+    //ErrorsModel errors = new ErrorsModel();
 
-    async Task Submit()
-    {
-        var response = await userApi.AttemptAuth(AuthenticationType.Register, userCredentials);
+    //async Task Submit()
+    //{
+    //    var response = await userApi.AttemptAuth(AuthenticationType.Register, userCredentials);
 
-        if (response != null && response.HasSuccessStatusCode)
-        {
-            navigationManager.NavigateTo("/");
-        }
-        else
-        {
-            errors = response?.Errors ?? new ErrorsModel();
-        }
-    }
-
+    //    if (response != null && response.HasSuccessStatusCode)
+    //    {
+    //        navigationManager.NavigateTo("/");
+    //    }
+    //    else
+    //    {
+    //        errors = response?.Errors ?? new ErrorsModel();
+    //    }
+    //}
 }
