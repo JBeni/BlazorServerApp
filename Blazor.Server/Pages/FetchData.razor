@@ -1,5 +1,14 @@
 ﻿@page "/fetchdata"
 
+@using Blazor.Server.Filters
+@using Microsoft.AspNetCore.Authorization
+
+@inject CustomAuthStateProvider CustomAuthStateProvider
+
+@*@attribute [Authorize]
+*@
+
+
 <PageTitle>Weather forecast</PageTitle>
 
 @using Blazor.Server.Data
@@ -15,34 +24,54 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <AuthorizeView>
+        <Authorized>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temp. (C)</th>
+                        <th>Temp. (F)</th>
+                        <th>Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var forecast in forecasts)
+                    {
+                        <tr>
+                            <td>@forecast.Date.ToShortDateString()</td>
+                            <td>@forecast.TemperatureC</td>
+                            <td>@forecast.TemperatureF</td>
+                            <td>@forecast.Summary</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </Authorized>
+    </AuthorizeView>
 }
 
 @code {
     private WeatherForecast[]? forecasts;
 
+    [CascadingParameter] Task<AuthenticationStateProvider>? authenticationStateTask { get; set; }
+    AuthenticationState AuthState;
+    private string? _authMessage;
+
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+
+        var authState = await CustomAuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            _authMessage = $"{user.Identity.Name} is authenticated.";
+        }
+        else
+        {
+            _authMessage = "the user is not authenticated.";
+        }
     }
 }
