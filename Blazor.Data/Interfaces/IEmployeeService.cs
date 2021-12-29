@@ -1,14 +1,15 @@
-﻿using Blazor.Models;
+﻿using Blazor.Data.Responses;
+using Blazor.Models;
 
 namespace Blazor.Data.Interfaces
 {
     public interface IEmployeeService
     {
-        public List<Employee> GetAllEmployees();
-        public void AddEmployee(Employee employee);
-        public void UpdateEmployee(Employee employee);
-        public Employee GetEmployeeData(int id);
+        public List<EmployeeResponse> GetAllEmployees();
+        public void AddEmployee(EmployeeResponse employee);
+        public void UpdateEmployee(EmployeeResponse employee);
+        public EmployeeResponse GetEmployeeData(int id);
         public void DeleteEmployee(int id);
-        public List<City> GetCitiesData();
+        public List<CityResponse> GetCitiesData();
     }
 }

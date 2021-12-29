@@ -1,8 +1,8 @@
 ﻿@page "/employee/add"
 @page "/employee/edit/{empID:int}"
 
+@using Blazor.Data.Responses
 @using Blazor.Data.Services
-@using Blazor.Models
 
 <h1>@Title Employee</h1>
 <hr />
@@ -62,8 +62,8 @@
     public int empID { get; set; }
 
     protected string Title = "Add";
-    public Employee emp = new();
-    protected List<City> cityList = new();
+    public EmployeeResponse emp = new();
+    protected List<CityResponse> cityList = new();
 
     protected override async Task OnInitializedAsync()
     {

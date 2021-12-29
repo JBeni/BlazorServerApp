@@ -9,6 +9,6 @@ namespace Blazor.Data.Interfaces
         DbSet<City> Cities { get; set; }
         DbSet<Employee> Employees { get; set; }
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        int SaveChanges();
     }
 }

@@ -19,7 +19,7 @@ namespace Blazor.Data.Persistence
         public DbSet<City> Cities { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override int SaveChanges()
         {
             foreach (EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
             {
@@ -35,7 +35,7 @@ namespace Blazor.Data.Persistence
                 }
             }
 
-            var result = await base.SaveChangesAsync(cancellationToken);
+            var result = base.SaveChanges();
             return result;
         }
 

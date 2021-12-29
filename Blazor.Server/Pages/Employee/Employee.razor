@@ -1,6 +1,7 @@
 ﻿@page "/employee"
+
+@using Blazor.Data.Responses
 @using Blazor.Data.Services
-@using Blazor.Models
 
 <h1>Employee Data</h1>
 <p>This component demonstrates CRUD operation on Employee data</p>
@@ -113,9 +114,9 @@ else
     [Inject]
     protected EmployeeService? EmployeeService { get; set; }
 
-    protected List<Employee> empList = new();
-    protected List<Employee> searchEmpData = new();
-    protected Employee emp = new();
+    protected List<EmployeeResponse> empList = new();
+    protected List<EmployeeResponse> searchEmpData = new();
+    protected EmployeeResponse emp = new();
     protected string SearchString { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()

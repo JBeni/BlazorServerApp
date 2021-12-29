@@ -1,5 +1,7 @@
-﻿using Blazor.Data.Interfaces;
-using Blazor.Data.Persistence;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Blazor.Data.Interfaces;
+using Blazor.Data.Responses;
 using Blazor.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,18 +9,23 @@ namespace Blazor.Data.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private ApplicationDbContext _db;
+        private readonly IApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(ApplicationDbContext db)
+        public EmployeeService(IApplicationDbContext dbContext, IMapper mapper)
         {
-            _db = db;
+            _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public List<Employee> GetAllEmployees()
+        public List<EmployeeResponse> GetAllEmployees()
         {
             try
             {
-                return _db.Employees.AsNoTracking().ToList();
+                var result = _dbContext.Employees.AsNoTracking()
+                    .ProjectTo<EmployeeResponse>(_mapper.ConfigurationProvider)
+                    .ToList();
+                return result;
             }
             catch
             {
@@ -26,12 +33,13 @@ namespace Blazor.Data.Services
             }
         }
 
-        public void AddEmployee(Employee employee)
+        public void AddEmployee(EmployeeResponse employee)
         {
             try
             {
-                _db.Employees.Add(employee);
-                _db.SaveChanges();
+                var entity = _dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
+                _dbContext.Employees.Add(entity);
+                _dbContext.SaveChanges();
             }
             catch
             {
@@ -39,12 +47,13 @@ namespace Blazor.Data.Services
             }
         }
 
-        public void UpdateEmployee(Employee employee)
+        public void UpdateEmployee(EmployeeResponse employee)
         {
             try
             {
-                _db.Entry(employee).State = EntityState.Modified;
-                _db.SaveChanges();
+                var entity = _dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
+                _dbContext.Employees.Update(entity);
+                _dbContext.SaveChanges();
             }
             catch
             {
@@ -52,15 +61,17 @@ namespace Blazor.Data.Services
             }
         }
 
-        public Employee GetEmployeeData(int id)
+        public EmployeeResponse GetEmployeeData(int id)
         {
             try
             {
-                Employee? employee = _db.Employees.Find(id);
+                var employee = _dbContext.Employees.AsNoTracking()
+                    .Where(x => x.EmployeeId == id)
+                    .ProjectTo<EmployeeResponse>(_mapper.ConfigurationProvider)
+                    .FirstOrDefault();
 
                 if (employee != null)
                 {
-                    _db.Entry(employee).State = EntityState.Detached;
                     return employee;
                 }
                 else
@@ -78,13 +89,13 @@ namespace Blazor.Data.Services
         {
             try
             {
-                Employee? employee = _db.Employees.Find(id);
+                Employee? employee = _dbContext.Employees.Find(id);
 
                 if (employee != null)
                 {
-                    _db.Employees.Remove(employee);
+                    _dbContext.Employees.Remove(employee);
                 }
-                _db.SaveChanges();
+                _dbContext.SaveChanges();
             }
             catch
             {
@@ -92,11 +103,14 @@ namespace Blazor.Data.Services
             }
         }
 
-        public List<City> GetCitiesData()
+        public List<CityResponse> GetCitiesData()
         {
             try
             {
-                return _db.Cities.ToList();
+                var result = _dbContext.Cities.AsNoTracking()
+                    .ProjectTo<CityResponse>(_mapper.ConfigurationProvider)
+                    .ToList();
+                return result;
             }
             catch
             {
