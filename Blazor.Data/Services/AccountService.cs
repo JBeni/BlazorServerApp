@@ -46,13 +46,14 @@ namespace Blazor.Data.Services
             };
             var key = Encoding.UTF8.GetBytes(jwtSettings.Secret);
 
-            var userRole = await _AppUserService.GetUserRoleAsync(user);
+            var userRole = await _AppRoleService.CheckUserRolesAsync(user); 
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role,""),
+                new Claim(ClaimTypes.Role, userRole[0]),
                 new Claim("UserId", user.Id.ToString()),
-                new Claim("UserFullName", $"{user.FirstName} {user.LastName}"),
+                new Claim("UserFullName", $"{user.UserName}"),
             };
 
             var expiresIn = DateTime.Now.AddDays(30);
@@ -68,23 +69,23 @@ namespace Blazor.Data.Services
 
             return new JwtTokenResponse
             {
-                access_token = new JwtSecurityTokenHandler().WriteToken(token),
-                expires_in = (int)(expiresIn - DateTime.Now).TotalMinutes,
+                Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expires_In = (int)(expiresIn - DateTime.Now).TotalMinutes,
                 Successful = true
             };
         }
 
         public async Task<JwtTokenResponse> LoginAsync(LoginCommand login)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.UserName == login.Email);
+            var user = _userManager.Users.SingleOrDefault(u => u.Email == login.Email);
             if (user == null)
             {
-                throw new Exception("Email / password incorrect");
+                return  JwtTokenResponse.Error(new Exception("Email / password incorrect"));
             }
             var passwordValid = await CheckPasswordAsync(user, login.Password);
             if (passwordValid == false)
             {
-                throw new Exception("Email / password incorrect");
+                return JwtTokenResponse.Error(new Exception("Email / password incorrect"));
             }
 
             return await GenerateToken(user);
@@ -92,7 +93,7 @@ namespace Blazor.Data.Services
 
         public async Task<JwtTokenResponse> RegisterAsync(RegisterCommand register)
         {
-            var existUser = _userManager.Users.SingleOrDefault(u => u.UserName == register.Email);
+            var existUser = _userManager.Users.SingleOrDefault(u => u.Email == register.Email);
             if (existUser == null)
             {
                 AppUser newUser = new AppUser
