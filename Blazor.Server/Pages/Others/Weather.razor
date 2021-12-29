@@ -2,17 +2,12 @@
 
 @using Blazor.Server.Filters
 @using Microsoft.AspNetCore.Authorization
-
-@inject CustomAuthStateProvider CustomAuthStateProvider
-
-<PageTitle>Weather forecast</PageTitle>
-
 @using Blazor.Server.Data
 @inject WeatherForecastService ForecastService
 
-<h1>Weather forecast</h1>
+<PageTitle>Weather forecast</PageTitle>
 
-<p>This component demonstrates fetching data from a service.</p>
+<h1>Weather forecast</h1>
 
 @if (forecasts == null)
 {
@@ -20,31 +15,27 @@
 }
 else
 {
-    <AuthorizeView>
-        <Authorized>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var forecast in forecasts)
-                    {
-                        <tr>
-                            <td>@forecast.Date.ToShortDateString()</td>
-                            <td>@forecast.TemperatureC</td>
-                            <td>@forecast.TemperatureF</td>
-                            <td>@forecast.Summary</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </Authorized>
-    </AuthorizeView>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
@@ -58,16 +49,16 @@ else
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
 
-        var authState = await CustomAuthStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
+        //var authState = await CustomAuthStateProvider.GetAuthenticationStateAsync();
+        //var user = authState.User;
 
-        if (user.Identity.IsAuthenticated)
-        {
-            _authMessage = $"{user.Identity.Name} is authenticated.";
-        }
-        else
-        {
-            _authMessage = "the user is not authenticated.";
-        }
+        //if (user.Identity.IsAuthenticated)
+        //{
+        //    _authMessage = $"{user.Identity.Name} is authenticated.";
+        //}
+        //else
+        //{
+        //    _authMessage = "the user is not authenticated.";
+        //}
     }
 }
