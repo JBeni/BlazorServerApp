@@ -8,7 +8,8 @@ namespace Blazor.Data.Interfaces
         DbSet<Product> Products { get; set; }
         DbSet<City> Cities { get; set; }
         DbSet<Employee> Employees { get; set; }
+        DbSet<Todo> Todos { get; set; }
 
-        int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
