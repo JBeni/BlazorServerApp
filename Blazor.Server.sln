@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Data", "Blazor.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Models", "Blazor.Models\Blazor.Models.csproj", "{77FB6B16-C8A9-4701-A7A1-682359E217A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Identity", "Blazor.Identity\Blazor.Identity.csproj", "{DA2FF2B5-973E-4BBF-AF98-F960B50B7E8B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{7294EBDB-0266-45BD-AA90-F07CB90FFDAF}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -35,10 +33,6 @@ Global
 		{77FB6B16-C8A9-4701-A7A1-682359E217A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77FB6B16-C8A9-4701-A7A1-682359E217A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77FB6B16-C8A9-4701-A7A1-682359E217A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA2FF2B5-973E-4BBF-AF98-F960B50B7E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA2FF2B5-973E-4BBF-AF98-F960B50B7E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA2FF2B5-973E-4BBF-AF98-F960B50B7E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA2FF2B5-973E-4BBF-AF98-F960B50B7E8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
