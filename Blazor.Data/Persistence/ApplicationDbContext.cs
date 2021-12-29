@@ -1,4 +1,5 @@
 ﻿using Blazor.Data.Interfaces;
+using Blazor.Data.Persistence.Configurations;
 using Blazor.Models;
 using Blazor.Models.Common;
 using Blazor.Models.Identity;
@@ -18,8 +19,9 @@ namespace Blazor.Data.Persistence
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Todo> Todos { get; set; }
 
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
             {
@@ -35,7 +37,7 @@ namespace Blazor.Data.Persistence
                 }
             }
 
-            var result = base.SaveChanges();
+            var result = await base.SaveChangesAsync(cancellationToken);
             return result;
         }
 
@@ -44,7 +46,10 @@ namespace Blazor.Data.Persistence
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //builder.ApplyConfiguration(new AppUserRoleConfiguration());
+            builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new EmployeeConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new TodoConfiguration());
         }
     }
 }
