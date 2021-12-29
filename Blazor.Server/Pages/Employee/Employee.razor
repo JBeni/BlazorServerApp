@@ -149,10 +149,7 @@ else
 
     protected async Task DeleteEmployee(int empID)
     {
-        await Task.Run(() =>
-        {
-            EmployeeService.DeleteEmployee(empID);
-        });
+        await EmployeeService.DeleteEmployee(empID);
         await GetEmployee();
     }
 
