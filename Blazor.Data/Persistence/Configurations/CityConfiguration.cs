@@ -14,35 +14,6 @@ namespace Blazor.Data.Persistence.Configurations
             builder.Property(e => e.CityName)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-
-            builder.HasData
-            (
-                new City
-                {
-                    CityId = 1,
-                    CityName = "London",
-                },
-                new City
-                {
-                    CityId = 2,
-                    CityName = "Madrid",
-                },
-                new City
-                {
-                    CityId = 3,
-                    CityName = "Berlin",
-                },
-                new City
-                {
-                    CityId = 4,
-                    CityName = "Rome",
-                },
-                new City
-                {
-                    CityId = 5,
-                    CityName = "San Diego",
-                }
-            );
         }
     }
 }
