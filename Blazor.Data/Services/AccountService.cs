@@ -47,7 +47,6 @@ namespace Blazor.Data.Services
             var key = Encoding.UTF8.GetBytes(jwtSettings.Secret);
 
             var userRole = await _AppRoleService.CheckUserRolesAsync(user); 
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
