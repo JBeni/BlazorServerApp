@@ -1,10 +1,7 @@
 ﻿@page "/login"
-@*@using Blazor.Server.Models
-@using BlazorServerSideRealWorld.Models
-@using BlazorServerSideRealWorld.Services
-@inject NavigationManager navigationManager
-@inject UserService userApi
-@inject IJSRuntime jsRuntime
+
+@using Blazor.Data.Models
+@using Blazor.Server.Models
 
 <div class="auth-page">
     <div class="container page">
@@ -12,18 +9,23 @@
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <h1 class="text-xs-center">Sign in</h1>
                 <p class="text-xs-center">
-                    <a href="/signup">Need an account?</a>
+                    <a href="/register">Need an account?</a>
                 </p>
-                <ErrorMessages Errors="@errors" />
+                @if (ShowLoginFailed)
+                {
+                    <div class="alert alert-danger">
+                        Login attempt failed.
+                    </div>
+                }
                 <form>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="email" placeholder="Email" @bind="userCredentials.Email" />
+                        <input class="form-control form-control-lg" type="email" placeholder="Email" @bind="_loginCommand.Email" />
                     </fieldset>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="password" placeholder="Password" @bind="userCredentials.Password" />
+                        <input class="form-control form-control-lg" type="password" placeholder="Password" @bind="_loginCommand.Password" />
                     </fieldset>
-                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="Submit">
-                        Sign in
+                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="LoginUser">
+                        Login
                     </button>
                 </form>
             </div>
@@ -32,20 +34,23 @@
 </div>
 
 @code {
-    UserCredentials userCredentials = new UserCredentials();
-    ErrorsModel errors = new ErrorsModel();
+    [Inject] private AppState _appState { get; set; }
+    [Inject] public NavigationManager? _urlNavigationManager  { get; set; }
 
-    async Task Submit()
+    protected LoginCommand _loginCommand { get; set; } = new LoginCommand();
+    protected bool ShowLoginFailed { get; set; }
+
+    protected async Task LoginUser()
     {
-        var response = await userApi.AttemptAuth(AuthenticationType.Login, userCredentials);
+        await _appState.Login(_loginCommand);
 
-        if (response != null && response.HasSuccessStatusCode)
+        if (_appState.IsLoggedIn)
         {
-            navigationManager.NavigateTo("/");
+            _urlNavigationManager.NavigateTo("/");
         }
         else
         {
-            errors = response?.Errors ?? new ErrorsModel();
+            ShowLoginFailed = true;
         }
     }
-}*@
+}
