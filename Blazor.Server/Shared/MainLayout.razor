@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
 
 <PageTitle>Blazor.Server</PageTitle>
 
@@ -9,22 +10,23 @@
 
     <main>
         <div class="top-row">
-            @if(!ShowLoginFailed)
-            {
-                <NavLink class="nav-link" href="login">
-                    <span class="oi oi-account-login" aria-hidden="true"></span> Login
-                </NavLink>
-                <NavLink class="nav-link" href="register">
-                    <span class="oi oi-share-boxed" aria-hidden="true"></span> Register
-                </NavLink>
-            }
-            else
-            {
-                <NavLink class="nav-link" href="logout">
-                    <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
-                </NavLink>
-            }
-        </div>
+@*            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="login">
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                    </NavLink>
+                    <NavLink class="nav-link" href="register">
+                        <span class="oi oi-share-boxed" aria-hidden="true"></span> Register
+                    </NavLink>
+                </NotAuthorized>
+                <Authorized>
+                    <NavLink class="nav-link" href="logout">
+                        Welcome @context.User.FindFirst(ClaimTypes.Email).Value
+                        <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+                    </NavLink>
+                </Authorized>
+            </AuthorizeView>
+*@        </div>
 
         <article class="content px-4">
             @Body
@@ -35,6 +37,11 @@
 @code {
     [Inject] private AppState _appState { get; set; }
     protected bool ShowLoginFailed { get; private set; } = false;
+
+    [CascadingParameter] Task<AuthenticationStateProvider>? authenticationStateTask { get; set; }
+    AuthenticationState AuthState;
+    private string? _authMessage;
+
 
     protected override void OnInitialized()
     {
