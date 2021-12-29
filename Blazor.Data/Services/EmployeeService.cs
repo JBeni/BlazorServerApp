@@ -22,7 +22,7 @@ namespace Blazor.Data.Services
         {
             try
             {
-                var result = _dbContext.Employees.AsNoTracking()
+                var result = _dbContext.Employees
                     .ProjectTo<EmployeeResponse>(_mapper.ConfigurationProvider)
                     .ToList();
                 return result;

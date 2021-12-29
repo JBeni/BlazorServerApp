@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Blazor.Data.Interfaces;
 using Blazor.Data.Services;
 using System.Reflection;
-using FluentValidation;
 using Blazor.Server.Filters;
 using Microsoft.AspNetCore.Components.Authorization;
+using Blazor.Data.Responses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(EmployeeResponse));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
@@ -56,6 +56,8 @@ builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAppRoleService, AppRoleService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
+
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
 builder.Services.AddScoped<EmployeeService>();
 
