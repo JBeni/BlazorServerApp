@@ -88,23 +88,17 @@
     {
         if (emp.EmployeeId != 0)
         {
-            await Task.Run(() =>
-            {
-                EmployeeService.UpdateEmployee(emp);
-            });
+            await EmployeeService.UpdateEmployee(emp);
         }
         else
         {
-            await Task.Run(() =>
-            {
-                EmployeeService.AddEmployee(emp);
-            });
+            await EmployeeService.AddEmployee(emp);
         }
         Cancel();
     }
 
     public void Cancel()
     {
-        UrlNavigationManager.NavigateTo("/fetchemployee");
+        UrlNavigationManager.NavigateTo("/employee");
     }
 }
