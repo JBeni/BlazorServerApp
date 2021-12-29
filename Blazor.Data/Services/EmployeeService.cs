@@ -33,13 +33,23 @@ namespace Blazor.Data.Services
             }
         }
 
-        public void AddEmployee(EmployeeResponse employee)
+        public async Task AddEmployee(EmployeeResponse employee)
         {
             try
             {
                 var entity = _dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
+                if (entity != null) return;
+
+                entity = new Employee
+                {
+                    City = employee.City,
+                    Name = employee.Name,
+                    Gender = employee.Gender,
+                    Department = employee.Department
+                };
+
                 _dbContext.Employees.Add(entity);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync(new CancellationToken());
             }
             catch
             {
@@ -47,13 +57,20 @@ namespace Blazor.Data.Services
             }
         }
 
-        public void UpdateEmployee(EmployeeResponse employee)
+        public async Task UpdateEmployee(EmployeeResponse employee)
         {
             try
             {
-                var entity = _dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
+                Employee? entity = _dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
+                if (entity == null) return;
+
+                entity.City = employee.City;
+                entity.Name = employee.Name;
+                entity.Gender = employee.Gender;
+                entity.Department = employee.Department;
+
                 _dbContext.Employees.Update(entity);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync(new CancellationToken());
             }
             catch
             {
@@ -85,7 +102,7 @@ namespace Blazor.Data.Services
             }
         }
 
-        public void DeleteEmployee(int id)
+        public async Task DeleteEmployee(int id)
         {
             try
             {
@@ -94,8 +111,8 @@ namespace Blazor.Data.Services
                 if (employee != null)
                 {
                     _dbContext.Employees.Remove(employee);
+                    await _dbContext.SaveChangesAsync(new CancellationToken());
                 }
-                _dbContext.SaveChanges();
             }
             catch
             {
