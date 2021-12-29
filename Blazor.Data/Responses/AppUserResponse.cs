@@ -19,6 +19,7 @@ namespace Blazor.Data.Responses
                 .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.Username, opt => opt.MapFrom(s => s.Email))
                 .ForMember(d => d.FirstName, opt => opt.MapFrom(s => s.FirstName))
+                .ForMember(d => d.RoleName, opt => opt.MapFrom(s => s.Roles.FirstOrDefault().Name))
                 .ForMember(d => d.LastName, opt => opt.MapFrom(s => s.LastName));
         }
 
