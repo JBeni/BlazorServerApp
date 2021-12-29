@@ -2,9 +2,9 @@
 {
     public class JwtTokenResponse
     {
-        public string? access_token { get; set; }
-        public string Type => "Bearer";
-        public int expires_in { get; set; }
+        public string? Access_Token { get; set; }
+        public static string Type => "Bearer";
+        public int Expires_In { get; set; }
 
         public bool Successful { get; set; }
         public Exception? Exception { get; set; }
