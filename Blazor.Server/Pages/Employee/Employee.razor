@@ -1,4 +1,4 @@
-﻿@page "/fetchemployee"
+﻿@page "/employee"
 @using Blazor.Data.Services
 @using Blazor.Models
 
@@ -125,7 +125,7 @@ else
 
     protected async Task GetEmployee()
     {
-        empList = await EmployeeService.GetEmployeeList();
+        empList = EmployeeService.GetAllEmployees();
         searchEmpData = empList;
     }
 
@@ -150,7 +150,7 @@ else
     {
         await Task.Run(() =>
         {
-            EmployeeService.Delete(empID);
+            EmployeeService.DeleteEmployee(empID);
         });
         await GetEmployee();
     }

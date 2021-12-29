@@ -4,11 +4,6 @@
 @using Blazor.Data.Services
 @using Blazor.Models
 
-
-@*@inherits AddEditEmployeeModel
-*@
-
-
 <h1>@Title Employee</h1>
 <hr />
 
@@ -59,64 +54,57 @@
 </EditForm>
 
 @code {
-    //public class AddEditEmployeeModel : ComponentBase
-    //{
+    [Inject]
+    protected EmployeeService? EmployeeService { get; set; }
+    [Inject]
+    public NavigationManager? UrlNavigationManager { get; set; }
+    [Parameter]
+    public int empID { get; set; }
 
+    protected string Title = "Add";
+    public Employee emp = new();
+    protected List<City> cityList = new();
 
-        [Inject]
-        protected EmployeeService EmployeeService { get; set; }
-        [Inject]
-        public NavigationManager UrlNavigationManager { get; set; }
-        [Parameter]
-        public int empID { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await GetCityList();
+    }
 
-        protected string Title = "Add";
-        public Employee emp = new();
-        protected List<City> cityList = new();
-
-        protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
+    {
+        if (empID != 0)
         {
-            await GetCityList();
+            Title = "Edit";
+            emp = EmployeeService.GetEmployeeData(empID);
         }
+    }
 
-        protected override async Task OnParametersSetAsync()
+    protected async Task GetCityList()
+    {
+        cityList = EmployeeService.GetCitiesData();
+    }
+
+    protected async Task SaveEmployee()
+    {
+        if (emp.EmployeeId != 0)
         {
-            if (empID != 0)
+            await Task.Run(() =>
             {
-                Title = "Edit";
-                emp = await EmployeeService.Details(empID);
-            }
+                EmployeeService.UpdateEmployee(emp);
+            });
         }
-
-        protected async Task GetCityList()
+        else
         {
-            cityList = await EmployeeService.GetCities();
-        }
-
-        protected async Task SaveEmployee()
-        {
-            if (emp.EmployeeId != 0)
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    EmployeeService.Edit(emp);
-                });
-            }
-            else
-            {
-                await Task.Run(() =>
-                {
-                    EmployeeService.Create(emp);
-                });
-            }
-            Cancel();
+                EmployeeService.AddEmployee(emp);
+            });
         }
+        Cancel();
+    }
 
-        public void Cancel()
-        {
-            UrlNavigationManager.NavigateTo("/fetchemployee");
-        }
-
-
-    //}
+    public void Cancel()
+    {
+        UrlNavigationManager.NavigateTo("/fetchemployee");
+    }
 }

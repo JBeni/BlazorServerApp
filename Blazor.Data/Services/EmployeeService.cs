@@ -1,44 +1,107 @@
 ﻿using Blazor.Data.Interfaces;
+using Blazor.Data.Persistence;
 using Blazor.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blazor.Data.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeService objemployee;
+        private ApplicationDbContext _db;
 
-        public EmployeeService(IEmployeeService _objemployee)
+        public EmployeeService(ApplicationDbContext db)
         {
-            objemployee = _objemployee;
-        }
-
-        public Task<List<Employee>> GetEmployeeList()
-        {
-            return Task.FromResult(objemployee.GetAllEmployees());
+            _db = db;
         }
 
-        public void Create(Employee employee)
+        public List<Employee> GetAllEmployees()
         {
-            objemployee.AddEmployee(employee);
-        }
-        public Task<Employee> Details(int id)
-        {
-            return Task.FromResult(objemployee.GetEmployeeData(id));
-        }
-
-        public void Edit(Employee employee)
-        {
-            objemployee.UpdateEmployee(employee);
+            try
+            {
+                return _db.Employees.AsNoTracking().ToList();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
-        public void Delete(int id)
+        public void AddEmployee(Employee employee)
         {
-            objemployee.DeleteEmployee(id);
+            try
+            {
+                _db.Employees.Add(employee);
+                _db.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
         }
-        public Task<List<City>> GetCities()
+
+        public void UpdateEmployee(Employee employee)
         {
-            return Task.FromResult(objemployee.GetCityData());
+            try
+            {
+                _db.Entry(employee).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public Employee GetEmployeeData(int id)
+        {
+            try
+            {
+                Employee? employee = _db.Employees.Find(id);
+
+                if (employee != null)
+                {
+                    _db.Entry(employee).State = EntityState.Detached;
+                    return employee;
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            try
+            {
+                Employee? employee = _db.Employees.Find(id);
+
+                if (employee != null)
+                {
+                    _db.Employees.Remove(employee);
+                }
+                _db.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<City> GetCitiesData()
+        {
+            try
+            {
+                return _db.Cities.ToList();
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
-
 }

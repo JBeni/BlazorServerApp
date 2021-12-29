@@ -9,6 +9,6 @@ namespace Blazor.Data.Interfaces
         public void UpdateEmployee(Employee employee);
         public Employee GetEmployeeData(int id);
         public void DeleteEmployee(int id);
-        public List<City> GetCityData();
+        public List<City> GetCitiesData();
     }
 }

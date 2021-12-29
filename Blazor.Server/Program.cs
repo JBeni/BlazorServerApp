@@ -57,8 +57,8 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAppRoleService, AppRoleService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
 
-builder.Services.AddTransient<IEmployeeService, EmployeeDataAccessLayer>();
 builder.Services.AddScoped<EmployeeService>();
+
 
 var app = builder.Build();
 
