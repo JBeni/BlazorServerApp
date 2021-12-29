@@ -1,8 +1,6 @@
-﻿@page "/signup"
-@*@using BlazorServerSideRealWorld.Models
-@using BlazorServerSideRealWorld.Services
-@inject NavigationManager navigationManager
-@inject UserService userApi
+﻿@page "/register"
+
+@using Blazor.Data.Models
 
 <div class="auth-page">
     <div class="container page">
@@ -12,41 +10,62 @@
                 <p class="text-xs-center">
                     <a href="/signin">Have an account?</a>
                 </p>
-                <ErrorMessages Errors=@errors />
+                @if (ShowLoginFailed)
+                {
+                    <div class="alert alert-danger">
+                        Register attempt failed.
+                    </div>
+                }
                 <form>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="text" placeholder="Your Name" @bind="userCredentials.Username" />
+                        <input class="form-control form-control-lg" type="text" placeholder="First Name" @bind="_registerCommand.FirstName" />
                     </fieldset>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="email" placeholder="Email" @bind="userCredentials.Email" />
+                        <input class="form-control form-control-lg" type="text" placeholder="Last Name" @bind="_registerCommand.LastName" />
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="email" placeholder="Email" @bind="_registerCommand.Email" />
                     </fieldset>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="password" placeholder="Password" @bind="@userCredentials.Password" />
+                        <input class="form-control form-control-lg" type="password" placeholder="Password" @bind="@_registerCommand.Password" />
                     </fieldset>
-                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="@Submit">
-                        Sign up
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="password" placeholder="Confirm Password" @bind="@_registerCommand.ConfirmPassword" />
+                    </fieldset>
+                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="@RegisterUser">
+                        Register
                     </button>
                 </form>
             </div>
         </div>
     </div>
-</div>*@
+</div>
 
 @code {
-    //UserCredentials userCredentials = new UserCredentials();
-    //ErrorsModel errors = new ErrorsModel();
+    [Inject] private AppState _appState { get; set; }
+    [Inject] public NavigationManager? _urlNavigationManager { get; set; }
 
-    //async Task Submit()
-    //{
-    //    var response = await userApi.AttemptAuth(AuthenticationType.Register, userCredentials);
+    protected RegisterCommand _registerCommand { get; set; } = new RegisterCommand();
+    protected bool ShowLoginFailed { get; set; }
 
-    //    if (response != null && response.HasSuccessStatusCode)
-    //    {
-    //        navigationManager.NavigateTo("/");
-    //    }
-    //    else
-    //    {
-    //        errors = response?.Errors ?? new ErrorsModel();
-    //    }
-    //}
+    protected async Task RegisterUser()
+    {
+        if (!_registerCommand.Password.Equals(_registerCommand.ConfirmPassword))
+        {
+            ShowLoginFailed = true;
+            return;
+        }
+
+        await _appState.Register(_registerCommand);
+
+        if (_appState.IsLoggedIn)
+        {
+            _urlNavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            ShowLoginFailed = true;
+        }
+    }
 }
