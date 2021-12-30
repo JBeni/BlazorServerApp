@@ -13,19 +13,19 @@ namespace Blazor.Data.Persistence.Configurations
             builder.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
             builder.Property(e => e.City)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsUnicode(false);
 
             builder.Property(e => e.Department)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsUnicode(false);
 
             builder.Property(e => e.Gender)
-                .HasMaxLength(6)
+                .HasMaxLength(100)
                 .IsUnicode(false);
 
             builder.Property(e => e.Name)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsUnicode(false);
         }
     }
