@@ -1,7 +1,8 @@
 ﻿@page "/employee"
 
+@inject EmployeeService EmployeeService
+
 <h1>Employees</h1>
-<p>This component demonstrates CRUD operation on Employee data</p>
 
 <div class="row">
     <div class="col-md-6">
@@ -102,26 +103,20 @@ else
 
     void ModalShow() => showModal = true;
     void ModalCancel() => showModal = false;
+    void ModalOk() => showModal = false;
 
-    void ModalOk()
-    {
-        showModal = false;
-    }
-
-    [Inject]
-    protected EmployeeService? EmployeeService { get; set; }
-
-    protected List<EmployeeResponse> empList = new();
-    protected List<EmployeeResponse> searchEmpData = new();
     protected EmployeeResponse emp = new();
     protected string SearchString { get; set; } = string.Empty;
 
-    protected override async Task OnInitializedAsync()
+    protected List<EmployeeResponse> empList = new();
+    protected List<EmployeeResponse> searchEmpData = new();
+
+    protected override void OnInitialized()
     {
-        await GetEmployee();
+        GetEmployee();
     }
 
-    protected async Task GetEmployee()
+    protected void GetEmployee()
     {
         empList = EmployeeService.GetAllEmployees();
         searchEmpData = empList;
@@ -147,7 +142,7 @@ else
     protected async Task DeleteEmployee(int empID)
     {
         await EmployeeService.DeleteEmployee(empID);
-        await GetEmployee();
+        GetEmployee();
     }
 
     public void ResetSearch()
