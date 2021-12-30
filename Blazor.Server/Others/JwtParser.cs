@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text.Json;
-
-namespace Blazor.Server.Others
+﻿namespace Blazor.Server.Others
 {
     public static class JwtParser
     {
