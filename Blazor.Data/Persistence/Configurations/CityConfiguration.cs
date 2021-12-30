@@ -10,9 +10,10 @@ namespace Blazor.Data.Persistence.Configurations
         {
             builder.ToTable("Cities");
 
+            builder.HasKey(x => x.CityId);
             builder.Property(e => e.CityId).HasColumnName("CityID");
             builder.Property(e => e.CityName)
-                .HasMaxLength(20)
+                .HasMaxLength(150)
                 .IsUnicode(false);
         }
     }
