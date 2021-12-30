@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Blazor.Data\Blazor.Data.csproj" />
+      <ProjectReference Include="..\Blazor.Application\Blazor.Application.csproj" />
     </ItemGroup>
 
 </Project>
