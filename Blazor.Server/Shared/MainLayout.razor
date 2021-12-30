@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
+@inject AuthenticationStateProvider AuthStateProvider
+
 <PageTitle>Blazor.Server</PageTitle>
 
 <div class="page">
@@ -19,7 +21,7 @@
                     </NavLink>
                 </NotAuthorized>
                 <Authorized>
-                    Welcome @context.User.FindFirst(ClaimTypes.Email).Value
+                    Welcome @context.User.Claims.FirstOrDefault(x => x.Type == "email").Value
                     <NavLink class="nav-link" href="logout">
                         <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                     </NavLink>
@@ -34,27 +36,16 @@
 </div>
 
 @code {
-    [Inject] private AppState _appState { get; set; }
-    protected bool ShowLoginFailed { get; private set; } = false;
-
-    [CascadingParameter] Task<AuthenticationStateProvider>? authenticationStateTask { get; set; }
-    AuthenticationState AuthState;
-    private string? _authMessage;
-
-
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        base.OnInitialized();
-    }
+        var authstate = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authstate.User;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        var result = await _appState.GetLocalStorageToken();
+        if (!user.Identity.IsAuthenticated) return;
 
-        if (_appState.IsLoggedIn)
-        {
-            ShowLoginFailed = true;
-        }
-        await base.OnAfterRenderAsync(firstRender);
+        var claimEmail = user.Claims.FirstOrDefault(x => x.Type == "email").Value;
+        var claimName = user.Claims.FirstOrDefault(x => x.Type == "name").Value;
+
+        var name = user.Identity.Name;
     }
 }
