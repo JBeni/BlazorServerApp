@@ -14,8 +14,10 @@
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAppRoleService, AppRoleService>();
             services.AddTransient<IAppUserService, AppUserService>();
+
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddScoped<EmployeeService>();
+            services.AddScoped<ProductService>();
             services.AddScoped<TodoService>();
 
             return services;
