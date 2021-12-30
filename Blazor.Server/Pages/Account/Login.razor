@@ -1,5 +1,15 @@
 ﻿@page "/login"
 
+@inject IAuthenticationService AuthService
+@inject NavigationManager NavManager
+
+@if (showAuthenticationError)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@authenticationErrorText</p>
+    </div>
+}
+
 <div class="auth-page">
     <div class="container page">
         <div class="row">
@@ -8,12 +18,6 @@
                 <p class="text-xs-center">
                     <a href="/register">Need an account?</a>
                 </p>
-                @if (ShowLoginFailed)
-                {
-                    <div class="alert alert-danger">
-                        Login attempt failed.
-                    </div>
-                }
                 <form>
                     <fieldset class="form-group">
                         <input class="form-control form-control-lg" type="email" placeholder="Email" @bind="_loginCommand.Email" />
@@ -21,7 +25,7 @@
                     <fieldset class="form-group">
                         <input class="form-control form-control-lg" type="password" placeholder="Password" @bind="_loginCommand.Password" />
                     </fieldset>
-                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="LoginUser">
+                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="ExecuteLogin">
                         Login
                     </button>
                 </form>
@@ -31,23 +35,28 @@
 </div>
 
 @code {
-    [Inject] private AppState _appState { get; set; }
-    [Inject] public NavigationManager? _urlNavigationManager  { get; set; }
+    private LoginCommand _loginCommand = new();
 
-    protected LoginCommand _loginCommand { get; set; } = new LoginCommand();
-    protected bool ShowLoginFailed { get; set; }
+    private bool showAuthenticationError = false;
+    private string authenticationErrorText = "";
 
-    protected async Task LoginUser()
+    protected void OnInitialized()
     {
-        await _appState.Login(_loginCommand);
+    }
 
-        if (_appState.IsLoggedIn)
+    private async Task ExecuteLogin()
+    {
+        showAuthenticationError = false;
+
+        var result = await AuthService.Login(_loginCommand);
+        if (result is not null)
         {
-            _urlNavigationManager.NavigateTo("/");
+            NavManager.NavigateTo("/");
         }
         else
         {
-            ShowLoginFailed = true;
+            authenticationErrorText = "There was an error when trying to log in.";
+            showAuthenticationError = true;
         }
     }
 }
