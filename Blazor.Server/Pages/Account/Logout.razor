@@ -4,7 +4,6 @@
 @inject IAuthenticationService AuthService
 
 @code {
-
     protected override async Task OnInitializedAsync()
     {
         await AuthService.Logout();
