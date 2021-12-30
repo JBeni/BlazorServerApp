@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Blazor.Data.Mappings;
-using Blazor.Models.Identity;
-
-namespace Blazor.Data.Responses
+﻿namespace Blazor.Data.Responses
 {
     public class AppUserResponse : IMapFrom<AppUser>
     {
