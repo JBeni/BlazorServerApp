@@ -1,5 +1,15 @@
 ﻿@page "/register"
 
+@inject NavigationManager NavManager
+@inject IAuthenticationService AuthService
+
+@if (showAuthenticationError)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@authenticationErrorText</p>
+    </div>
+}
+
 <div class="auth-page">
     <div class="container page">
         <div class="row">
@@ -8,12 +18,6 @@
                 <p class="text-xs-center">
                     <a href="/signin">Have an account?</a>
                 </p>
-                @if (ShowLoginFailed)
-                {
-                    <div class="alert alert-danger">
-                        Register attempt failed.
-                    </div>
-                }
                 <form>
                     <fieldset class="form-group">
                         <input class="form-control form-control-lg" type="text" placeholder="First Name" @bind="_registerCommand.FirstName" />
@@ -31,7 +35,7 @@
                     <fieldset class="form-group">
                         <input class="form-control form-control-lg" type="password" placeholder="Confirm Password" @bind="@_registerCommand.ConfirmPassword" />
                     </fieldset>
-                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="@RegisterUser">
+                    <button class="btn btn-lg btn-primary pull-xs-right" type="button" @onclick="@ExecuteRegister">
                         Register
                     </button>
                 </form>
@@ -41,29 +45,24 @@
 </div>
 
 @code {
-    [Inject] private AppState _appState { get; set; }
-    [Inject] public NavigationManager? _urlNavigationManager { get; set; }
+    private RegisterCommand _registerCommand = new();
 
-    protected RegisterCommand _registerCommand { get; set; } = new RegisterCommand();
-    protected bool ShowLoginFailed { get; set; }
+    private bool showAuthenticationError = false;
+    private string authenticationErrorText = "";
 
-    protected async Task RegisterUser()
+    private async Task ExecuteRegister()
     {
-        if (!_registerCommand.Password.Equals(_registerCommand.ConfirmPassword))
-        {
-            ShowLoginFailed = true;
-            return;
-        }
+        showAuthenticationError = false;
 
-        await _appState.Register(_registerCommand);
-
-        if (_appState.IsLoggedIn)
+        var result = await AuthService.Register(_registerCommand);
+        if (result is not null)
         {
-            _urlNavigationManager.NavigateTo("/");
+            NavManager.NavigateTo("/");
         }
         else
         {
-            ShowLoginFailed = true;
+            authenticationErrorText = "There was an error when trying to log in.";
+            showAuthenticationError = true;
         }
     }
 }
