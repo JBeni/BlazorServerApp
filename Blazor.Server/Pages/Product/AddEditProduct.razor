@@ -54,7 +54,7 @@
         <label for="Size" class="form-label">Size</label>
         <div class="col-md-4">
             <InputSelect class="form-control" @bind-Value="product.SizeId">
-                <option value="-- Select Size --">-- Select Size --</option>
+                <option value="0">-- Select Size --</option>
                 @foreach (var size in sizeList)
                 {
                     <option value="@size.Id">@size.Name</option>
@@ -67,7 +67,7 @@
         <label for="Colour" class="form-label">Colour</label>
         <div class="col-md-4">
             <InputSelect class="form-control" @bind-Value="product.ColourId">
-                <option value="-- Select Size --">-- Select Size --</option>
+                <option value="0">-- Select Size --</option>
                 @foreach (var colour in colourList)
                 {
                     <option value="@colour.Id">@colour.Name</option>
