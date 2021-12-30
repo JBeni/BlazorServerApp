@@ -1,4 +1,4 @@
-﻿namespace Blazor.Models.Common
+﻿namespace Blazor.Domain.Common
 {
     public class AuditableEntity : EntityBase
     {

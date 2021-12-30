@@ -1,4 +1,4 @@
-﻿namespace Blazor.Models.Entities
+﻿namespace Blazor.Domain.Entities
 {
     public class Employee
     {

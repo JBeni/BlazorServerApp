@@ -1,4 +1,4 @@
-﻿namespace Blazor.Models.Identity
+﻿namespace Blazor.Domain.Identity
 {
     public class AppRole : IdentityRole<int>
     {
