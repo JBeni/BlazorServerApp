@@ -1,11 +1,4 @@
-﻿using Blazor.Data.Interfaces;
-using Blazor.Data.Persistence;
-using Blazor.Data.Responses;
-using Blazor.Data.Services;
-using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-
-namespace Blazor.Data
+﻿namespace Blazor.Data
 {
     public static class DependencyInjection
     {
@@ -14,10 +7,6 @@ namespace Blazor.Data
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             //services.AddAutoMapper(typeof(EmployeeResponse));
-            //services.AddAutoMapper(typeof(AppRoleResponse));
-            //services.AddAutoMapper(typeof(AppUserResponse));
-            //services.AddAutoMapper(typeof(CityResponse));
-            //services.AddAutoMapper(typeof(TodoResponse));
 
             // Inject services
             services.AddSingleton<WeatherForecastService>();
