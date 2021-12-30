@@ -1,6 +1,9 @@
 ﻿@page "/employee/add"
 @page "/employee/edit/{empID:int}"
 
+@inject EmployeeService EmployeeService
+@inject NavigationManager NavManager
+
 <h1>@Title Employee</h1>
 <hr />
 
@@ -51,23 +54,19 @@
 </EditForm>
 
 @code {
-    [Inject]
-    protected EmployeeService? EmployeeService { get; set; }
-    [Inject]
-    public NavigationManager? UrlNavigationManager { get; set; }
     [Parameter]
     public int empID { get; set; }
-
     protected string Title = "Add";
+
     public EmployeeResponse emp = new();
     protected List<CityResponse> cityList = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await GetCityList();
+        GetCityList();
     }
 
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
         if (empID != 0)
         {
@@ -76,7 +75,7 @@
         }
     }
 
-    protected async Task GetCityList()
+    protected void GetCityList()
     {
         cityList = EmployeeService.GetCitiesData();
     }
@@ -96,6 +95,6 @@
 
     public void Cancel()
     {
-        UrlNavigationManager.NavigateTo("/employee");
+        NavManager.NavigateTo("/employee");
     }
 }
