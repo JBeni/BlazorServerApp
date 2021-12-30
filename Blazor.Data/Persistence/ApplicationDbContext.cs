@@ -20,6 +20,8 @@ namespace Blazor.Data.Persistence
         public DbSet<City> Cities { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Todo> Todos { get; set; }
+        public DbSet<Colour> Colours { get; set; }
+        public DbSet<Size> Sizes { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -50,6 +52,8 @@ namespace Blazor.Data.Persistence
             builder.ApplyConfiguration(new EmployeeConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new TodoConfiguration());
+            builder.ApplyConfiguration(new SizeConfiguration());
+            builder.ApplyConfiguration(new ColourConfiguration());
         }
     }
 }

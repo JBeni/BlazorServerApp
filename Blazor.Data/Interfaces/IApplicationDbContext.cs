@@ -9,6 +9,8 @@ namespace Blazor.Data.Interfaces
         DbSet<City> Cities { get; set; }
         DbSet<Employee> Employees { get; set; }
         DbSet<Todo> Todos { get; set; }
+        DbSet<Colour> Colours { get; set; }
+        DbSet<Size> Sizes { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
