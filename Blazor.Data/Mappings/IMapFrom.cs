@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Blazor.Data.Mappings
+﻿namespace Blazor.Data.Mappings
 {
     public interface IMapFrom<T>
     {

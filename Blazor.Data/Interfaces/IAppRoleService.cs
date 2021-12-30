@@ -1,7 +1,4 @@
-﻿using Blazor.Data.Responses;
-using Blazor.Models.Identity;
-
-namespace Blazor.Data.Interfaces
+﻿namespace Blazor.Data.Interfaces
 {
     public interface IAppRoleService
     {

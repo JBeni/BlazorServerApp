@@ -1,8 +1,4 @@
-﻿using Blazor.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Blazor.Data.Persistence.Configurations
+﻿namespace Blazor.Data.Persistence.Configurations
 {
     public class SizeConfiguration : IEntityTypeConfiguration<Size>
     {

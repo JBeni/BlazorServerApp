@@ -1,8 +1,4 @@
-﻿using Blazor.Models;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity;
-
-namespace Blazor.Data.Persistence
+﻿namespace Blazor.Data.Persistence
 {
     public static class ApplicationDbContextSeed
     {

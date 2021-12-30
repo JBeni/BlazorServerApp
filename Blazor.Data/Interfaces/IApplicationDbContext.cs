@@ -1,7 +1,4 @@
-﻿using Blazor.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Blazor.Data.Interfaces
+﻿namespace Blazor.Data.Interfaces
 {
     public interface IApplicationDbContext
     {

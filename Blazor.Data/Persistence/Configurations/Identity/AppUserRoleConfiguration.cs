@@ -1,8 +1,4 @@
-﻿using Blazor.Models.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Blazor.Data.Persistence.Configurations.Id
+﻿namespace Blazor.Data.Persistence.Configurations.Id
 {
     public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
     {

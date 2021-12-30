@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Blazor.Data.Models
+﻿namespace Blazor.Data.Models
 {
     public class ErrorsModel
     {

@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System.Reflection;
-
-namespace Blazor.Data.Mappings
+﻿namespace Blazor.Data.Mappings
 {
     public class MappingProfile : Profile
     {

@@ -1,6 +1,4 @@
-﻿using Blazor.Data.Responses;
-
-namespace Blazor.Data.Interfaces
+﻿namespace Blazor.Data.Interfaces
 {
     public interface IEmployeeService
     {

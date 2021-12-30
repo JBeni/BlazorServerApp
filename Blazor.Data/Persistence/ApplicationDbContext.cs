@@ -1,14 +1,4 @@
-﻿using Blazor.Data.Interfaces;
-using Blazor.Data.Persistence.Configurations;
-using Blazor.Models;
-using Blazor.Models.Common;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Reflection;
-
-namespace Blazor.Data.Persistence
+﻿namespace Blazor.Data.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, int,
         AppUserClaim, AppUserRole, AppUserLogin,
