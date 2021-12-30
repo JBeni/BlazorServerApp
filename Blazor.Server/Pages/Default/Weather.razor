@@ -1,11 +1,6 @@
 ﻿@page "/weather"
 
-@inject HttpClient Http
 @inject WeatherForecastService ForecastService
-
-@attribute [Authorize(Roles = "Admin")]
-
-<PageTitle>Weather forecast</PageTitle>
 
 <h1>Weather forecast</h1>
 
@@ -40,10 +35,6 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
-
-    [CascadingParameter] Task<AuthenticationStateProvider>? authenticationStateTask { get; set; }
-    AuthenticationState AuthState;
-    private string? _authMessage;
 
     protected override async Task OnInitializedAsync()
     {
