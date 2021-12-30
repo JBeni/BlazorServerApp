@@ -2,7 +2,6 @@ using Blazor.Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Blazor.Models.Identity;
 using Microsoft.AspNetCore.Identity;
-using Blazor.Server.Filters;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazor.Server;
 using Blazored.LocalStorage;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Blazor.Data;
+using Blazor.Server.Others;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +39,7 @@ var builderIdentity = builder.Services.AddIdentityCore<AppUser>(opt =>
 });
 builderIdentity = new IdentityBuilder(builderIdentity.UserType, builderIdentity.RoleType, builder.Services);
 builderIdentity.AddRoles<AppRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-builder.Services.AddAuthorization(options => { });
+builder.Services.AddAuthorizationCore();
 
 // Add JWT TOKEN Settings
 builder.Services.AddAuthentication(opt =>
@@ -68,12 +68,13 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
-builder.Services.AddScoped<CustomAuthStateProvider,  CustomAuthStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider>(p => p.GetService<CustomAuthStateProvider>());
-
+// this is the version of AppState, but much much better than AppState
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 builder.Services.AddScoped<AppState>();
 builder.Services.AddHttpClient<AppState>();
+
 
 var app = builder.Build();
 
@@ -85,6 +86,8 @@ using (var scope = app.Services.CreateScope())
 
     await ApplicationDbContextSeed.SeedRolesDataAsync(roleManager);
     await ApplicationDbContextSeed.SeedCityData(context);
+    await ApplicationDbContextSeed.SeedSizeData(context);
+    await ApplicationDbContextSeed.SeedColourData(context);
 }
 
 if (!app.Environment.IsDevelopment())
