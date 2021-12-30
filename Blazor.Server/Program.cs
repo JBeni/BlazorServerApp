@@ -1,15 +1,3 @@
-using Blazor.Data.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Components.Authorization;
-using Blazor.Server;
-using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Blazor.Data;
-using Blazor.Server.Others;
 
 var builder = WebApplication.CreateBuilder(args);
 
