@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Blazor.Server.Others
+﻿namespace Blazor.Server.Others
 {
     public class AuthenticationUserModel
     {
