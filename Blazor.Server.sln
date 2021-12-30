@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Server", "Blazor.Server\Blazor.Server.csproj", "{C34F8842-88B1-44B3-B197-5454CB9D9099}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Data", "Blazor.Data\Blazor.Data.csproj", "{02E19E05-851B-4858-9840-3D1491868369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Application", "Blazor.Application\Blazor.Application.csproj", "{02E19E05-851B-4858-9840-3D1491868369}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Models", "Blazor.Models\Blazor.Models.csproj", "{77FB6B16-C8A9-4701-A7A1-682359E217A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Domain", "Blazor.Domain\Blazor.Domain.csproj", "{77FB6B16-C8A9-4701-A7A1-682359E217A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{7294EBDB-0266-45BD-AA90-F07CB90FFDAF}"
 	ProjectSection(SolutionItems) = preProject
