@@ -1,9 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-
-namespace Blazor.Server.Others
+﻿namespace Blazor.Server.Others
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
