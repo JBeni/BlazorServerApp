@@ -1,5 +1,3 @@
-using Blazor.Data.Models;
-
 namespace Blazor.Data.Services
 {
     public class WeatherForecastService

@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Blazor.Data.Interfaces;
-using Blazor.Data.Models;
-using Blazor.Data.Responses;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
-namespace Blazor.Data.Services
+﻿namespace Blazor.Data.Services
 {
     public class AppUserService : IAppUserService
     {

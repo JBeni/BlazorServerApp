@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Blazor.Models.Identity
+﻿namespace Blazor.Models.Identity
 {
     public class AppRole : IdentityRole<int>
     {

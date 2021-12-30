@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Blazor.Data.Interfaces;
-using Blazor.Data.Responses;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity;
-
-namespace Blazor.Data.Services
+﻿namespace Blazor.Data.Services
 {
     public class AppRoleService : IAppRoleService
     {

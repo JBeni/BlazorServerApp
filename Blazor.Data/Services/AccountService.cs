@@ -1,15 +1,4 @@
-﻿using Blazor.Data.Interfaces;
-using Blazor.Data.Models;
-using Blazor.Data.Responses;
-using Blazor.Models.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace Blazor.Data.Services
+﻿namespace Blazor.Data.Services
 {
     public class AccountService : IAccountService
     {

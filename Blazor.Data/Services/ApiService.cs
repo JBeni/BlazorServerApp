@@ -1,7 +1,4 @@
-﻿using Blazor.Data.Interfaces;
-using System.Net.Http.Headers;
-
-namespace Blazor.Data.Services
+﻿namespace Blazor.Data.Services
 {
     public class ApiService : IApiService
     {
