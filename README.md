@@ -1,4 +1,4 @@
 # Blazor.Server
 
-* Sample Blazor Server App
+* <strike>Sample Blazor Server App</strike>
 * <strike>Creating Todo Items, stored them temporarily on "page memory"</strike>
