@@ -1,6 +1,7 @@
 ﻿@page "/login"
 
 @inject IAuthenticationService AuthService
+@inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavManager
 
 @if (showAuthenticationError)
@@ -40,8 +41,14 @@
     private bool showAuthenticationError = false;
     private string authenticationErrorText = "";
 
-    protected void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        var authstate = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            NavManager.NavigateTo("/");
+        }
     }
 
     private async Task ExecuteLogin()
