@@ -42,7 +42,6 @@
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userRole[0]),
                 new Claim("UserId", user.Id.ToString()),
-                new Claim("UserFullName", $"{user.UserName}"),
             };
 
             var expiresIn = DateTime.Now.AddDays(30);
