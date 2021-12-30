@@ -49,6 +49,7 @@ namespace Blazor.Data.Services
             var userRole = await _AppRoleService.CheckUserRolesAsync(user); 
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, userRole[0]),
                 new Claim("UserId", user.Id.ToString()),
