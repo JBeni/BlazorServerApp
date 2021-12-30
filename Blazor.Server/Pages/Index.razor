@@ -1,13 +1,13 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
 
 <h1>Welcome to your new app.</h1>
 
-<AuthorizeView Roles="Admin">
+<AuthorizeView>
     <Authorized>
         <h3>You are logged in</h3>
-        <h1>The user @context.User.FindFirst(ClaimTypes.Name).Value is authorized</h1>
+        <h1>The user @context.User.Claims.FirstOrDefault(x => x.Type == "email").Value is authorized</h1>
     </Authorized>
     <NotAuthorized>
         <h3>The user is not authorized</h3>
