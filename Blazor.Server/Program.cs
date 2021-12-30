@@ -57,11 +57,10 @@ builder.Services.AddAuthentication(opt =>
 });
 
 // this is the version of AppState, but much much better than AppState
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
-
-builder.Services.AddScoped<AppState>();
-builder.Services.AddHttpClient<AppState>();
+builder.Services.AddHttpClient<AuthStateProvider>();
 
 
 var app = builder.Build();
