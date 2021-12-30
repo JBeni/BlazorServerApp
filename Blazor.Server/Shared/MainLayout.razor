@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <PageTitle>Blazor.Server</PageTitle>
 
@@ -10,7 +9,7 @@
 
     <main>
         <div class="top-row">
-@*            <AuthorizeView>
+            <AuthorizeView>
                 <NotAuthorized>
                     <NavLink class="nav-link" href="login">
                         <span class="oi oi-account-login" aria-hidden="true"></span> Login
@@ -20,13 +19,13 @@
                     </NavLink>
                 </NotAuthorized>
                 <Authorized>
+                    Welcome @context.User.FindFirst(ClaimTypes.Email).Value
                     <NavLink class="nav-link" href="logout">
-                        Welcome @context.User.FindFirst(ClaimTypes.Email).Value
                         <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                     </NavLink>
                 </Authorized>
             </AuthorizeView>
-*@        </div>
+        </div>
 
         <article class="content px-4">
             @Body
