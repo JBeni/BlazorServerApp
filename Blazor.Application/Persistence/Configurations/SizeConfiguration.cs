@@ -7,7 +7,7 @@
             builder.ToTable("Sizes");
 
             builder.HasKey(x => x.Id);
-            builder.Property(p => p.Id).ValueGeneratedNever();
+            //builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(e => e.Id).HasColumnName("Id");
             builder.Property(e => e.Name)
                 .HasMaxLength(150)
