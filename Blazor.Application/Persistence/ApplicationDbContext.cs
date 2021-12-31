@@ -12,6 +12,7 @@
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Colour> Colours { get; set; }
         public DbSet<Size> Sizes { get; set; }
+        public DbSet<Pizza> Pizzas { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

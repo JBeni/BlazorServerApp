@@ -8,6 +8,7 @@
         DbSet<Todo> Todos { get; set; }
         DbSet<Colour> Colours { get; set; }
         DbSet<Size> Sizes { get; set; }
+        DbSet<Pizza> Pizzas { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
