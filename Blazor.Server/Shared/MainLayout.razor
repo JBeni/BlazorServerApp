@@ -21,7 +21,7 @@
                     </NavLink>
                 </NotAuthorized>
                 <Authorized>
-                    Welcome @context.User.Claims.FirstOrDefault(x => x.Type == "email").Value
+                    Welcome @context.User.Claims.FirstOrDefault(x => x.Type == "name").Value
                     <NavLink class="nav-link" href="logout">
                         <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                     </NavLink>
