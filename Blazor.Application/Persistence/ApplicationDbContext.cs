@@ -40,11 +40,12 @@
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new ColourConfiguration());
             builder.ApplyConfiguration(new EmployeeConfiguration());
+            builder.ApplyConfiguration(new PizzaConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new TodoConfiguration());
             builder.ApplyConfiguration(new SizeConfiguration());
-            builder.ApplyConfiguration(new ColourConfiguration());
         }
     }
 }

@@ -2,8 +2,9 @@
 @page "/product/edit/{Id:int}"
 
 @inject ProductService ProductService
+@inject SizeService SizeService
+@inject ColourService ColourService
 @inject NavigationManager NavManager
-
 @attribute [Authorize]
 
 <h1>@Title Product</h1>
@@ -104,29 +105,29 @@
         if (Id != 0)
         {
             Title = "Edit";
-            product = ProductService.GetProduct(Id);
+            product = ProductService.GetProductData(Id);
         }
     }
 
     protected void GetSizeList()
     {
-        sizeList = ProductService.GetSizesData();
+        sizeList = SizeService.GetSizesData();
     }
 
     protected void GetColourList()
     {
-        colourList = ProductService.GetColoursData();
+        colourList = ColourService.GetColoursData();
     }
 
-    protected async Task SaveProduct()
+    protected void SaveProduct()
     {
         if (product.Id != 0)
         {
-            await ProductService.UpdateProduct(product);
+            ProductService.UpdateProduct(product);
         }
         else
         {
-            await ProductService.AddProduct(product);
+            ProductService.AddProduct(product);
         }
         Cancel();
     }

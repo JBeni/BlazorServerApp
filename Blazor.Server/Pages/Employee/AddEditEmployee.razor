@@ -2,8 +2,8 @@
 @page "/employee/edit/{empID:int}"
 
 @inject EmployeeService EmployeeService
+@inject CityService CityService
 @inject NavigationManager NavManager
-
 @attribute [Authorize]
 
 <h1>@Title Employee</h1>
@@ -79,18 +79,18 @@
 
     protected void GetCityList()
     {
-        cityList = EmployeeService.GetCitiesData();
+        cityList = CityService.GetCitiesData();
     }
 
-    protected async Task SaveEmployee()
+    protected void SaveEmployee()
     {
         if (emp.EmployeeId != 0)
         {
-            await EmployeeService.UpdateEmployee(emp);
+            EmployeeService.UpdateEmployee(emp);
         }
         else
         {
-            await EmployeeService.AddEmployee(emp);
+            EmployeeService.AddEmployee(emp);
         }
         Cancel();
     }

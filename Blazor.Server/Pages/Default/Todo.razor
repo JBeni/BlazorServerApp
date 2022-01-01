@@ -74,23 +74,23 @@ else
         todos = TodoService.GetAllTodos();
     }
 
-    protected async Task SaveTodo()
+    protected void SaveTodo()
     {
         if (_todo.Id == 0)
         {
             if (!string.IsNullOrWhiteSpace(_todo.Title))
             {
-                await TodoService.CreateTodo(_todo);
+                TodoService.CreateTodo(_todo);
             }
         }
         GetTodos();
     }
 
-    protected async Task CompleteTodo(int todoId)
+    protected void CompleteTodo(int todoId)
     {
         if (todoId != 0)
         {
-            await TodoService.CompleteTodo(todoId);
+            TodoService.CompleteTodo(todoId);
         }
         GetTodos();
     }

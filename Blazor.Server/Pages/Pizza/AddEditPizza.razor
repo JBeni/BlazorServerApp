@@ -1,7 +1,7 @@
 ﻿@page "/pizza/add"
 @page "/pizza/edit/{Id:int}"
 
-@inject IPizzaService PizzaService
+@inject PizzaService PizzaService
 @inject NavigationManager NavManager
 @attribute [Authorize]
 
@@ -79,19 +79,19 @@
         if (Id != 0)
         {
             Title = "Edit";
-            pizza = PizzaService.GetPizza(Id);
+            pizza = PizzaService.GetPizzaData(Id);
         }
     }
 
-    protected async Task SavePizza()
+    protected void SavePizza()
     {
         if (pizza.Id != 0)
         {
-            await PizzaService.UpdatePizza(pizza);
+            PizzaService.UpdatePizza(pizza);
         }
         else
         {
-            await PizzaService.AddPizza(pizza);
+            PizzaService.AddPizza(pizza);
         }
         Cancel();
     }

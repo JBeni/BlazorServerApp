@@ -1,7 +1,6 @@
 ﻿@page "/employee"
 
 @inject EmployeeService EmployeeService
-
 @attribute [Authorize]
 
 <h1>Employees</h1>
@@ -82,7 +81,7 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" @onclick="(async () => {
-                                await DeleteEmployee(emp.EmployeeId);
+                                DeleteEmployee(emp.EmployeeId);
                                 ModalOk();
                             })">Delete</button>
                             <button type="button" class="btn" @onclick="@ModalCancel">Cancel</button>
@@ -141,9 +140,9 @@ else
         emp = empList.FirstOrDefault(x => x.EmployeeId == empID);
     }
 
-    protected async Task DeleteEmployee(int empID)
+    protected void DeleteEmployee(int empID)
     {
-        await EmployeeService.DeleteEmployee(empID);
+        EmployeeService.DeleteEmployee(empID);
         GetEmployee();
     }
 

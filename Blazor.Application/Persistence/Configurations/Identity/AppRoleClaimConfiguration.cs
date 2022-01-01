@@ -1,4 +1,4 @@
-﻿namespace Blazor.Application.Persistence.Configurations.Id
+﻿namespace Blazor.Application.Persistence.Configurations.Identity
 {
     public class AppRoleClaimConfiguration : IEntityTypeConfiguration<AppRoleClaim>
     {

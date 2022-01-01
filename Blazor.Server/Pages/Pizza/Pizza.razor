@@ -1,6 +1,6 @@
 ﻿@page "/pizza"
 
-@inject IPizzaService PizzaService
+@inject PizzaService PizzaService
 @attribute [Authorize]
 
 <h3>Pizzas</h3>
@@ -83,7 +83,7 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" @onclick="(async () => {
-                                await DeletePizza(pizza.Id); ModalOk();
+                                DeletePizza(pizza.Id); ModalOk();
                             })">Delete</button>
                             <button type="button" class="btn" @onclick="@ModalCancel">Cancel</button>
                         </div>
@@ -120,7 +120,7 @@ else
 
     protected void GetPizzas()
     {
-        pizzaList = PizzaService.GetPizzas();
+        pizzaList = PizzaService.GetAllPizzas();
         searchPizzaData = pizzaList;
     }
 
@@ -141,9 +141,9 @@ else
         pizza = pizzaList.FirstOrDefault(x => x.Id == Id);
     }
 
-    protected async Task DeletePizza(int empID)
+    protected void DeletePizza(int empID)
     {
-        await PizzaService.DeletePizza(empID);
+        PizzaService.DeletePizza(empID);
         GetPizzas();
     }
 

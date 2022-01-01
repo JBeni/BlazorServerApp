@@ -1,7 +1,6 @@
 ﻿@page "/product"
 
 @inject ProductService ProductService
-
 @attribute [Authorize]
 
 <h3>Products</h3>
@@ -87,8 +86,7 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" @onclick="(async () => {
-                                await DeleteProduct(product.Id);
-                                ModalOk();
+                                DeleteProduct(product.Id); ModalOk();
                             })">Delete</button>
                             <button type="button" class="btn" @onclick="@ModalCancel">Cancel</button>
                         </div>
@@ -125,7 +123,7 @@ else
 
     protected void GetProducts()
     {
-        productList = ProductService.GetProducts();
+        productList = ProductService.GetAllProducts();
         searchProductData = productList;
     }
 
@@ -146,9 +144,9 @@ else
         product = productList.FirstOrDefault(x => x.Id == Id);
     }
 
-    protected async Task DeleteProduct(int empID)
+    protected void DeleteProduct(int empID)
     {
-        await ProductService.DeleteProduct(empID);
+        ProductService.DeleteProduct(empID);
         GetProducts();
     }
 

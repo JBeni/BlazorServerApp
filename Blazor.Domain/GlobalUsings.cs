@@ -1,4 +1,12 @@
 ﻿global using Microsoft.AspNetCore.Identity;
 global using Blazor.Domain.Common;
 global using System.ComponentModel.DataAnnotations;
-global using System.ComponentModel.DataAnnotations.Schema;
+global using AutoMapper.QueryableExtensions;
+global using Microsoft.EntityFrameworkCore;
+global using AutoMapper;
+global using System.Reflection;
+global using Blazor.Domain.Responses;
+global using Microsoft.Extensions.DependencyInjection;
+global using Blazor.Domain.Identity;
+global using Blazor.Domain.Mappings;
+global using Blazor.Domain.Entities;

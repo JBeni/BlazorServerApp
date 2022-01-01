@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Blazor.RepositoryPattern</RootNamespace>
+	<AssemblyName>Blazor.RepositoryPattern</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.Application\Blazor.Application.csproj" />
+    <ProjectReference Include="..\Blazor.Domain\Blazor.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

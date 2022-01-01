@@ -1,6 +1,7 @@
 ﻿@page "/pizza/{Id:int}"
 
-@inject IPizzaService PizzaService
+@inject PizzaService PizzaService
+@attribute [Authorize]
 
 <div class="media">
     <div class="media-img-big-wrapper mr-2">
@@ -9,17 +10,6 @@
     <div class="media-body">
         <h2 class="mb-0">@pizza.Name</h2>
         <p>@pizza.Description</p>
-@*        @if (pizza.Variants != null && pizza.Variants.Count > 1)
-        {
-            <div class="form-group">
-                <select class="form-control" @bind="currentEditionId">
-                    @foreach (var variant in pizza.Variants)
-                    {
-                        <option value="@variant.EditionId">@variant.Edition.Name</option>
-                    }
-                </select>
-            </div>
-        }*@
         <h4 class="price">
             $ @pizza.Price
         </h4>
@@ -33,17 +23,17 @@
 </div>
 
 @code {
-    private PizzaResponse pizza = new();
-    private int currentEditionId = 1;
-
     [Parameter]
     public int Id { get; set; }
+
+    private PizzaResponse pizza = new();
+    private int currentEditionId = 1;
 
     protected override void OnParametersSet()
     {
         if (Id != 0)
         {
-            pizza = PizzaService.GetPizza(Id);            
+            pizza = PizzaService.GetPizzaData(Id);            
         }
     }
 }

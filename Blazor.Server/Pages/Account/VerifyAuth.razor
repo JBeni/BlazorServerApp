@@ -1,5 +1,7 @@
 ﻿@page "/verifyauth"
 
+@attribute [Authorize]
+
 <h3>Verify Auth</h3>
 
 @if (isAuthenticated)

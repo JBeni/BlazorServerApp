@@ -12,7 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
 ));
 
+builder.Services.AddDomainLayer();
 builder.Services.AddDataLayer();
+builder.Services.AddRepositoryLayer();
 
 var builderIdentity = builder.Services.AddIdentityCore<AppUser>(opt =>
 {
@@ -56,7 +58,6 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
-// this is the version of AppState, but much much better than AppState
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();

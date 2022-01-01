@@ -2,6 +2,7 @@
 
 @inject NavigationManager NavManager
 @inject IAuthenticationService AuthService
+@attribute [Authorize]
 
 @code {
     protected override async Task OnInitializedAsync()
