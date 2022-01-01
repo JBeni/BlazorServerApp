@@ -1,5 +1,7 @@
 # Blazor.Server
 
+* Unit of Work with Repository Pattern Implementation on Net 6
+
 * <strike>Sample Blazor Server App</strike>
 * <strike>Creating Todo Items, stored them temporarily on "page memory"</strike>
 
