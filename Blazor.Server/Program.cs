@@ -39,7 +39,6 @@ builder.Services.AddAuthentication(opt =>
 })
 .AddJwtBearer(options =>
 {
-    options.Authority = builder.Configuration["JwtToken:Issuer"];
     options.Audience = builder.Configuration["JwtToken:Audience"];
     options.RequireHttpsMetadata = true;
     options.SaveToken = true;
